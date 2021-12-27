@@ -24,7 +24,7 @@ print("Args:", parser.args)
 Create a configuration file `config.ini` in the same directory:
 ```ini
 [DEFAULT]
-# Help message before argument. Optional.
+# Help message of the first argument. It is Optional.
 a_string = 'abc'
 a_number = 1.23  # inline comments are omitted
 # Help can span multiple lines.
@@ -38,9 +38,10 @@ usage: example.py [-h] [-s A_STRING] [-n A_NUMBER] [-b]
 optional arguments:
   -h, --help            show this help message and exit
   -s A_STRING, --a_string A_STRING
-                        Help message before argument. Optional. (default: abc)
+                        Help message of the first argument. It is Optional.
+                        (default: abc)
   -n A_NUMBER, --a_number A_NUMBER
-  -b, --a_boolean       Help can span multiple lines, this is another line.
+  -b, --a_boolean       Help can span multiple lines. This is another line.
                         (default: False)
 ```
 Regular run, `python example.py`:
@@ -55,13 +56,13 @@ Args: {'a_string': 'abc', 'a_number': 1.0, 'a_boolean': True}
 ```
 
 ## Installation
-After `git clone` and `cd` into this repo, install:
+Install from PyPI:
+```bash
+pip install config-argument-parser
+```
+Alternatively, after `git clone` and `cd` into this repo, install in development mode:
 ```bash
 python -m pip install --upgrade pip
-pip install .
-```
-Install in development mode:
-```bash
 pip install -e .[dev]
 pre-commit install
 ```
