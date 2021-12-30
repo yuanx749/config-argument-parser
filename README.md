@@ -15,53 +15,72 @@ import args
 
 parser = args.ConfigArgumentParser()
 parser.read("config.ini")
-parser.add_arguments(shorts="snb")  # or parser.add_arguments()
+# add short options for the first few arguments in order
+# default is parser.add_arguments()
+parser.add_arguments(shorts="sfb")
 parser.parse_args()
 
 print("Configs:", parser.defaults)
-print("Args:", parser.args)
+print("Args:   ", parser.args)
 ```
 Create a configuration file `config.ini` in the same directory:
 ```ini
 [DEFAULT]
-# Help message before argument. Optional.
+# Help message of the first argument. Help is optional.
 a_string = 'abc'
-a_number = 1.23  # inline comments are omitted
+a_float = 1.23  # inline comments are omitted
 # Help can span multiple lines.
 # This is another line.
 a_boolean = False
+an_integer = 0
 ```
 Show help, `python example.py -h`:
 ```
-usage: example.py [-h] [-s A_STRING] [-n A_NUMBER] [-b]
+usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b]
+                  [--an_integer AN_INTEGER]
 
 optional arguments:
   -h, --help            show this help message and exit
   -s A_STRING, --a_string A_STRING
-                        Help message before argument. Optional. (default: abc)
-  -n A_NUMBER, --a_number A_NUMBER
-  -b, --a_boolean       Help can span multiple lines, this is another line.
+                        Help message of the first argument. Help is optional.
+                        (default: abc)
+  -f A_FLOAT, --a_float A_FLOAT
+  -b, --a_boolean       Help can span multiple lines. This is another line.
                         (default: False)
+  --an_integer AN_INTEGER
 ```
 Regular run, `python example.py`:
 ```
-Configs: {'a_string': 'abc', 'a_number': 1.23, 'a_boolean': False}
-Args: {'a_string': 'abc', 'a_number': 1.23, 'a_boolean': True}
+Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
+Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 ```
-Run with options, such as `python example.py -b -n 1`:
+Run with options, such as `python example.py -b -f 1`:
 ```
-Configs: {'a_string': 'abc', 'a_number': 1.23, 'a_boolean': False}
-Args: {'a_string': 'abc', 'a_number': 1.0, 'a_boolean': True}
+Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
+Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 
 ## Installation
-After `git clone` and `cd` into this repo, install:
+Install from PyPI:
 ```bash
 python -m pip install --upgrade pip
-pip install .
+pip install config-argument-parser
 ```
-Install in development mode:
+Alternatively, install from source:
 ```bash
+git clone https://github.com/yuanx749/config-argument-parser.git
+cd config-argument-parser
+```
+then install in development mode:
+```bash
+git checkout main
+python -m pip install --upgrade pip
+pip install -e .
+```
+or:
+```bash
+git checkout dev
+python -m pip install --upgrade pip
 pip install -e .[dev]
 pre-commit install
 ```
@@ -69,3 +88,6 @@ Uninstall:
 ```bash
 pip uninstall config-argument-parser
 ```
+
+## Notes
+This package uses [Semantic Versioning](https://semver.org/).
