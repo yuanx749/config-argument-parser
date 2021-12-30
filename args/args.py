@@ -52,14 +52,14 @@ class ConfigArgumentParser:
         self.config.read_string(string)
         self._convert_defaults()
 
-    def add_arguments(self, shorts=None):
+    def add_arguments(self, shorts=""):
         """Add arguments to parser according to the configuration.
 
         Args:
-            shorts: A sequence of the short option letters.
+            shorts: A sequence of short option letters for the leading options.
         """
         for i, (option, value) in enumerate(self.defaults.items()):
-            if shorts:
+            if i < len(shorts):
                 flags = [f"-{shorts[i]}", f"--{option}"]
             else:
                 flags = [f"--{option}"]
