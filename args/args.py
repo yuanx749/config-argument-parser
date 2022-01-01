@@ -29,14 +29,16 @@ class ConfigArgumentParser:
 
     def _convert_defaults(self):
         """Convert configuration to `self.defaults` and parse the comments into `self.help`."""
-        msg = ""
+        msg_lst = []
         for key, value in self.config.defaults().items():
             if key.startswith(self._comment_prefix):
-                msg += key.lstrip(self._comment_prefix)
+                msg = key.lstrip(self._comment_prefix)
+                msg = msg.strip()
+                msg_lst.append(msg)
             else:
                 self.defaults[key] = literal_eval(value)
-                self.help[key] = msg if msg else None
-                msg = ""
+                self.help[key] = " ".join(msg_lst) if msg_lst else " "
+                msg_lst = []
 
     def read(self, filenames):
         """Read and parse a filename or an iterable of filenames.

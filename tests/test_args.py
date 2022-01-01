@@ -25,12 +25,12 @@ class TestConfigArgumentParser:
     def test_parse_comments(self):
         assert (
             self.parser.help["a_string"]
-            == " Help message of the first argument. Help is optional."
+            == "Help message of the first argument. Help is optional."
         )
-        assert self.parser.help["a_float"] is None
+        assert self.parser.help["a_float"] == " "
         assert (
             self.parser.help["a_boolean"]
-            == " Help can span multiple lines. This is another line."
+            == "Help can span multiple lines. This is another line."
         )
 
     def test_parse_args_default(self):

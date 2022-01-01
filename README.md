@@ -45,9 +45,11 @@ optional arguments:
                         Help message of the first argument. Help is optional.
                         (default: abc)
   -f A_FLOAT, --a_float A_FLOAT
+                        (default: 1.23)
   -b, --a_boolean       Help can span multiple lines. This is another line.
                         (default: False)
   --an_integer AN_INTEGER
+                        (default: 0)
 ```
 Regular run, `python example.py`:
 ```
