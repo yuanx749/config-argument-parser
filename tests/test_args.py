@@ -1,26 +1,40 @@
 from args import args
 
+conf_str = """
+[DEFAULT]
+# Help message of the first argument. Help is optional.
+a_string = 'abc'
+a_float = 1.23  # inline comments are omitted
+# Help can span multiple lines.
+# This is another line.
+a_boolean = False
+an_integer = 0
+"""
+
 
 class TestConfigArgumentParser:
-
-    conf_str = """
-    [DEFAULT]
-    # Help message of the first argument. Help is optional.
-    a_string = 'abc'
-    a_float = 1.23  # inline comments are omitted
-    # Help can span multiple lines.
-    # This is another line.
-    a_boolean = False
-    an_integer = 0
-    """
 
     parser = args.ConfigArgumentParser()
 
     def setup_method(self):
-        self.parser.read_string(self.conf_str)
+        self.parser.read_string(conf_str)
 
     def teardown_method(self):
         self.parser._init_parser()
+
+    def test_read_file(self):
+        import os
+        from tempfile import mkstemp
+
+        fd, fname = mkstemp()
+        with open(fname, "w") as fp:
+            fp.write(conf_str)
+        parser = args.ConfigArgumentParser()
+        parser.read(fname)
+        assert parser.defaults == self.parser.defaults
+        assert parser.help == self.parser.help
+        os.close(fd)
+        os.remove(fname)
 
     def test_parse_comments(self):
         assert (
