@@ -1,14 +1,16 @@
 # config-argument-parser
-A module for building command-line interface from configuration.
+A package help automatically create command-line interface from configuration or code.
 
 ## Motivation
-Configuration files are highly readable and useful for specifying options, but sometimes they are not convenient as command-line interface. However, it requires writing a lot of code to produce a CLI. This module automates the building process, by utilizing the Python standard libraries `configparser` and `argparse`. It has features below.
+Configuration files are highly readable and useful for specifying options, but sometimes they are not convenient as command-line interface. However, it requires writing a lot of code to produce a CLI. This module automates the building process, by utilizing the Python standard libraries `configparser` and `argparse`.
 
+## Features
+- Only a few lines are needed to build a CLI from a script.
 - The comments are parsed as help messages. (Most libraries do not preserve the comments.)
 - Consistent format between configuration and script provides ease of use.
-- Only a few lines are needed to build a CLI.
 
 ## Usage
+### Case 1: create CLI from configuration
 Create an example script `example.py`:
 ```python
 import args
@@ -61,6 +63,41 @@ Run with options, such as `python example.py -b -f 1`:
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
+### Case 2: create CLI from script itself
+Create a script `example.py`, with the variables defined at top of file as below:
+```python
+# [DEFAULT]
+# Help message of the first argument. Help is optional.
+a_string = "abc"
+a_float = 1.23  # inline comments are omitted
+# Help can span multiple lines.
+# This is another line.
+a_boolean = False
+an_integer = 0
+# [END]
+
+import args
+
+parser = args.ConfigArgumentParser()
+parser.read_py("example.py")
+parser.add_arguments(shorts="sfb")
+parser.parse_args()
+
+# update global variables
+globals().update(parser.args)
+print(a_string)
+print(a_float)
+print(a_boolean)
+print(an_integer)
+```
+Use it as in case 1. For example, `python example.py -b -f 1`:
+```
+abc
+1.0
+True
+0
+```
+Note that the values are changed.
 
 ## Installation
 Install from PyPI:
