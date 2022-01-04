@@ -1,5 +1,6 @@
 import argparse
 import configparser
+import re
 from ast import literal_eval
 
 
@@ -16,16 +17,21 @@ class ConfigArgumentParser:
     """
 
     def __init__(self):
-        self.config = configparser.ConfigParser(
-            allow_no_value=True, delimiters="=", comment_prefixes=";"
-        )
-        self.config.optionxform = lambda x: x  # override the default
+        self._init_config()
         self._init_parser()
         self.defaults = dict()
         self.namespace = object()
         self.args = dict()
         self.help = dict()
         self._comment_prefix = "#"
+        self._sect_header_default = self.config.SECTCRE
+        self._sect_header_py = re.compile(r"# \[(?P<header>.+)\]")
+
+    def _init_config(self):
+        self.config = configparser.ConfigParser(
+            allow_no_value=True, delimiters="=", comment_prefixes=";", strict=False
+        )
+        self.config.optionxform = lambda x: x  # override the default
 
     def _convert_defaults(self):
         """Convert configuration to `self.defaults` and parse the comments into `self.help`."""
@@ -53,6 +59,13 @@ class ConfigArgumentParser:
         """Read configuration from a given string."""
         self.config.read_string(string)
         self._convert_defaults()
+
+    def read_py(self, filename):
+        """Read and parse a filename of Python script."""
+        self.config.SECTCRE = self._sect_header_py
+        self.config.read(filename)
+        self._convert_defaults()
+        self.config.SECTCRE = self._sect_header_default
 
     def add_arguments(self, shorts=""):
         """Add arguments to parser according to the configuration.
