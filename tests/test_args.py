@@ -1,7 +1,7 @@
 import os
 from tempfile import mkstemp
 
-from args import args
+from configargparser import args
 
 conf_str = """[DEFAULT]
 # Help message of the first argument. Help is optional.
