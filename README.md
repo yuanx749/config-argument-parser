@@ -13,9 +13,9 @@ Configuration files are highly readable and useful for specifying options, but s
 ### Case 1: create CLI from configuration
 Create an example script `example.py`:
 ```python
-import args
+import configargparser
 
-parser = args.ConfigArgumentParser()
+parser = configargparser.ConfigArgumentParser()
 parser.read("config.ini")
 # add short options for the first few arguments in order
 # default is parser.add_arguments()
@@ -76,9 +76,9 @@ a_boolean = False
 an_integer = 0
 # [END]
 
-import args
+import configargparser
 
-parser = args.ConfigArgumentParser()
+parser = configargparser.ConfigArgumentParser()
 parser.read_py("example.py")
 parser.add_arguments(shorts="sfb")
 parser.parse_args()
