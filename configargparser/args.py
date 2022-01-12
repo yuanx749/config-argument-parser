@@ -1,3 +1,5 @@
+"""A module for building command-line interface from file."""
+
 import argparse
 import configparser
 import re
@@ -17,6 +19,7 @@ class ConfigArgumentParser:
     """
 
     def __init__(self):
+        """Initialize ConfigArgumentParser."""
         self._init_config()
         self._init_parser()
         self.defaults = dict()
