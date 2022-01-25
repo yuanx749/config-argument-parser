@@ -2,6 +2,7 @@
 
 import argparse
 import configparser
+import inspect
 import re
 from ast import literal_eval
 
@@ -104,4 +105,32 @@ class ConfigArgumentParser:
         """
         self.namespace = self.parser.parse_args(args)
         self.args = vars(self.namespace)
+        return self.args
+
+    def _read_obj(self, obj):
+        """Read and parse the attributes of an object."""
+        source_lines, _ = inspect.getsourcelines(type(obj))
+        source_lines[0] = "[DEFAULT]\n"
+        self.config.read_string("".join(source_lines))
+        self._convert_defaults()
+
+    def _change_obj(self, obj):
+        """Update object attributes."""
+        obj.__dict__.update(self.args)
+
+    def parse_obj(self, obj, args=None, *, shorts=""):
+        """Parse arguments and update object attributes.
+
+        Args:
+            obj: An object with attributes as default arguments.
+            args: A list of strings to parse. The default is taken from `sys.argv`.
+            shorts: A sequence of short option letters for the leading options.
+
+        Returns:
+            A dictionary containing updated arguments.
+        """
+        self._read_obj(obj)
+        self.add_arguments(shorts=shorts)
+        self.parse_args(args=args)
+        self._change_obj(obj)
         return self.args

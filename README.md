@@ -5,7 +5,7 @@ A package help automatically create command-line interface from configuration or
 Configuration files are highly readable and useful for specifying options, but sometimes they are not convenient as command-line interface. However, it requires writing a lot of code to produce a CLI. This module automates the building process, by utilizing the Python standard libraries `configparser` and `argparse`.
 
 ## Features
-- Only a few lines are needed to build a CLI from a script.
+- Only a few lines are needed to build a CLI from an existing script.
 - The comments are parsed as help messages. (Most libraries do not preserve the comments.)
 - Consistent format between configuration and script provides ease of use.
 
@@ -98,7 +98,37 @@ True
 0
 ```
 Note that the values are changed.
+### Case 3: create CLI from an object
+Create a script `example.py` as below, with default arguments defined in a class. The good is that auto-completion can be triggered in editors.
+```python
+import configargparser
 
+class Args:
+    # Help message of the first argument. Help is optional.
+    a_string = "abc"
+    a_float = 1.23  # inline comments are omitted
+    # Help can span multiple lines.
+    # This is another line.
+    a_boolean = False
+    an_integer = 0
+
+args = Args()
+
+parser = configargparser.ConfigArgumentParser()
+parser.parse_obj(args, shorts="sfb")
+
+print(args.a_string)
+print(args.a_float)
+print(args.a_boolean)
+print(args.an_integer)
+```
+Use it as in case 1. For example, `python example.py -b -f 1`:
+```
+abc
+1.0
+True
+0
+```
 ## Installation
 Install from PyPI:
 ```bash
