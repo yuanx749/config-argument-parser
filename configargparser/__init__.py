@@ -1,5 +1,7 @@
-__version__ = "0.4.0"
+"""A package help automatically create command-line interface from configuration or code."""
 
-from .args import ConfigArgumentParser
+__version__ = "0.5.0"
+
+from .cap import ConfigArgumentParser
 
 __all__ = ["ConfigArgumentParser"]

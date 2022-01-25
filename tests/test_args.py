@@ -1,7 +1,7 @@
 import os
 from tempfile import mkstemp
 
-from configargparser import args
+from configargparser import cap
 
 conf_str = """[DEFAULT]
 # Help message of the first argument. Help is optional.
@@ -14,9 +14,19 @@ an_integer = 0
 """
 
 
+class Args:
+    # Help message of the first argument. Help is optional.
+    a_string = "abc"
+    a_float = 1.23  # inline comments are omitted
+    # Help can span multiple lines.
+    # This is another line.
+    a_boolean = False
+    an_integer = 0
+
+
 class TestConfigArgumentParser:
 
-    parser = args.ConfigArgumentParser()
+    parser = cap.ConfigArgumentParser()
 
     def setup_method(self):
         self.parser.read_string(conf_str)
@@ -28,7 +38,7 @@ class TestConfigArgumentParser:
         fd, fname = mkstemp()
         with open(fname, "w") as fp:
             fp.write(conf_str)
-        parser = args.ConfigArgumentParser()
+        parser = cap.ConfigArgumentParser()
         parser.read(fname)
         assert parser.defaults == self.parser.defaults
         assert parser.help == self.parser.help
@@ -39,7 +49,7 @@ class TestConfigArgumentParser:
         fd, fname = mkstemp(suffix=".py")
         with open(fname, "w") as fp:
             fp.write("# " + conf_str)
-        parser = args.ConfigArgumentParser()
+        parser = cap.ConfigArgumentParser()
         parser.read_py(fname)
         assert parser.defaults == self.parser.defaults
         assert parser.help == self.parser.help
@@ -78,3 +88,20 @@ class TestConfigArgumentParser:
         self.parser.parse_args("-b -f 1".split())
         assert self.parser.args["a_float"] == 1.0
         assert self.parser.args["a_boolean"]
+
+    def test_read_obj(self):
+        args = Args()
+        parser = cap.ConfigArgumentParser()
+        parser._read_obj(args)
+        assert parser.defaults == self.parser.defaults
+        assert parser.help == self.parser.help
+
+    def test_parse_obj(self):
+        args = Args()
+        self.parser.parse_obj(args, "-b -f 1".split(), shorts="sfb")
+        assert args.__dict__ == {
+            "a_string": "abc",
+            "a_float": 1.0,
+            "a_boolean": True,
+            "an_integer": 0,
+        }
