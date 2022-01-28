@@ -99,7 +99,7 @@ True
 ```
 Note that the values are changed.
 ### Case 3: create CLI from an object
-Create a script `example.py` as below, with default arguments defined in a class. The good is that auto-completion can be triggered in editors.
+Create a script `example.py` as below. Default arguments are defined as class attributes, and parsed arguments are stored as instance attributes. The good is that auto-completion can be triggered in editors.
 ```python
 import configargparser
 
