@@ -1,6 +1,6 @@
 """A package help automatically create command-line interface from configuration or code."""
 
-__version__ = "0.5.1"
+__version__ = "0.5.2"
 
 from .cap import ConfigArgumentParser
 
