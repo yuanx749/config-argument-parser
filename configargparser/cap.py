@@ -47,8 +47,15 @@ class ConfigArgumentParser:
                 msg_lst.append(msg)
             else:
                 self.defaults[key] = literal_eval(value)
-                self.help[key] = " ".join(msg_lst) if msg_lst else " "
+                self.help[key] = self._join_msg(msg_lst)
                 msg_lst = []
+
+    def _join_msg(self, msg_lst):
+        if msg_lst:
+            return " ".join(msg_lst)
+        # A non-empty string is needed to show the default in help.
+        else:
+            return " "
 
     def read(self, filenames):
         """Read and parse a filename or an iterable of filenames.
@@ -77,15 +84,15 @@ class ConfigArgumentParser:
         Args:
             shorts: A sequence of short option letters for the leading options.
         """
+        boolean_to_action = {True: "store_false", False: "store_true"}
         for i, (option, value) in enumerate(self.defaults.items()):
+            flags = [f"--{option}"]
             if i < len(shorts):
-                flags = [f"-{shorts[i]}", f"--{option}"]
-            else:
-                flags = [f"--{option}"]
+                flags.insert(0, f"-{shorts[i]}")
             if isinstance(value, bool):
                 self.parser.add_argument(
                     *flags,
-                    action="store_false" if value else "store_true",
+                    action=boolean_to_action[value],
                     help=self.help[option],
                 )
             else:
