@@ -68,26 +68,33 @@ class TestConfigArgumentParser:
         )
 
     def test_parse_args_default(self):
-        self.parser.add_arguments()
-        self.parser.parse_args([])
+        self.parser._add_arguments()
+        self.parser._parse_args([])
         assert (
             self.parser.defaults
             == self.parser.args
             == {"a_string": "abc", "a_float": 1.23, "a_boolean": False, "an_integer": 0}
         )
 
-    def test_parse_args(self):
-        self.parser.add_arguments()
-        self.parser.parse_args("--a_float 1".split())
+    def test_parse_args_separate(self):
+        self.parser._add_arguments()
+        self.parser._parse_args("--a_float 1".split())
         assert self.parser.args["a_float"] == 1.0
-        self.parser.parse_args(["--a_boolean"])
+        self.parser._parse_args(["--a_boolean"])
         assert self.parser.args["a_boolean"]
 
     def test_parse_args_short(self):
-        self.parser.add_arguments(shorts="sfb")
-        self.parser.parse_args("-b -f 1".split())
+        self.parser._add_arguments(shorts="sfb")
+        self.parser._parse_args("-b -f 1".split())
         assert self.parser.args["a_float"] == 1.0
         assert self.parser.args["a_boolean"]
+
+    def test_parse_args(self):
+        self.parser.parse_args("-b -f 1".split(), shorts="sfb")
+        assert self.parser.args["a_string"] == "abc"
+        assert self.parser.args["a_float"] == 1.0
+        assert self.parser.args["a_boolean"]
+        assert self.parser.args["an_integer"] == 0
 
     def test_read_obj(self):
         args = Args()

@@ -78,7 +78,7 @@ class ConfigArgumentParser:
         self._convert_defaults()
         self.config.SECTCRE = self._sect_header_default
 
-    def add_arguments(self, shorts=""):
+    def _add_arguments(self, shorts=""):
         """Add arguments to parser according to the configuration.
 
         Args:
@@ -105,13 +105,27 @@ class ConfigArgumentParser:
             formatter_class=argparse.ArgumentDefaultsHelpFormatter
         )
 
-    def parse_args(self, args=None):
+    def _parse_args(self, args=None):
         """Convert argument strings to dictionary `self.args`.
 
         Return a dictionary containing arguments.
         """
         self.namespace = self.parser.parse_args(args)
         self.args = vars(self.namespace)
+        return self.args
+
+    def parse_args(self, args=None, *, shorts=""):
+        """Add arguments to parser and parse arguments.
+
+        Args:
+            args: A list of strings to parse. The default is taken from `sys.argv`.
+            shorts: A sequence of short option letters for the leading options.
+
+        Returns:
+            A dictionary containing arguments.
+        """
+        self._add_arguments(shorts=shorts)
+        self._parse_args(args=args)
         return self.args
 
     def _read_obj(self, obj):
@@ -137,7 +151,7 @@ class ConfigArgumentParser:
             A dictionary containing updated arguments.
         """
         self._read_obj(obj)
-        self.add_arguments(shorts=shorts)
-        self.parse_args(args=args)
+        self._add_arguments(shorts=shorts)
+        self._parse_args(args=args)
         self._change_obj(obj)
         return self.args
