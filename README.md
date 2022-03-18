@@ -36,6 +36,7 @@ class Args:
 args = Args()
 
 parser = configargparser.ConfigArgumentParser()
+# if `shorts` is provided, add short options for the first few arguments in order
 parser.parse_obj(args, shorts="sfb")
 
 print(args.a_string)
@@ -82,10 +83,7 @@ import configargparser
 
 parser = configargparser.ConfigArgumentParser()
 parser.read("config.ini")
-# add short options for the first few arguments in order
-# default is parser.add_arguments()
-parser.add_arguments(shorts="sfb")
-parser.parse_args()
+parser.parse_args(shorts="sfb")
 
 print("Configs:", parser.defaults)
 print("Args:   ", parser.args)
@@ -129,8 +127,7 @@ import configargparser
 
 parser = configargparser.ConfigArgumentParser()
 parser.read_py("example.py")
-parser.add_arguments(shorts="sfb")
-parser.parse_args()
+parser.parse_args(shorts="sfb")
 
 # update global variables
 globals().update(parser.args)
