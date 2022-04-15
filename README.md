@@ -21,6 +21,8 @@ The design is to minimize the changes to your original scripts, so as to facilit
 
 ### Case 1: create CLI from an object
 If you used class to store arguments, create a script `example.py` as below. Default arguments are defined as class attributes, and parsed arguments are stored as instance attributes. The good is that auto-completion can be triggered in editors.
+
+For the best practice, see Case 4.
 ```Python
 import configargparser
 
@@ -52,18 +54,15 @@ parser.parse_obj(args)
 ```
 Show help, `python example.py -h`:
 ```
-usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b]
-                  [--an_integer AN_INTEGER]
+usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an_integer AN_INTEGER]
 
 optional arguments:
   -h, --help            show this help message and exit
   -s A_STRING, --a_string A_STRING
-                        Help message of the first argument. Help is optional.
-                        (default: abc)
+                        Help message of the first argument. Help is optional. (default: abc)
   -f A_FLOAT, --a_float A_FLOAT
                         (default: 1.23)
-  -b, --a_boolean       Help can span multiple lines. This is another line.
-                        (default: False)
+  -b, --a_boolean       Help can span multiple lines. This is another line. (default: False)
   --an_integer AN_INTEGER
                         (default: 0)
 ```
@@ -142,6 +141,38 @@ abc
 1.0
 True
 0
+```
+
+### Case 4: create CLI from a dataclass object (preferred)
+Suppose you have a script `example.py` below, which uses a `dataclass` object to store arguments:
+```Python
+from dataclasses import dataclass
+
+@dataclass
+class Args:
+    # Help message of the first argument. Help is optional.
+    a_string: str = "abc"
+    a_float: float = 1.23  # inline comments are omitted
+    # Help can span multiple lines.
+    # This is another line.
+    a_boolean: bool = False
+    an_integer: int = 0
+
+args = Args()
+
+print(args.__dict__)
+```
+Add these lines to the script to create CLI:
+```Python
+import configargparser
+parser = configargparser.TypeArgumentParser()
+parser.parse_obj(args, shorts="sfb")
+
+print(args.__dict__)
+```
+Use it as in case 1. For example, `python example.py -b -f 1` to change the values:
+```
+{'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 
 ## Installation
