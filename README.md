@@ -7,6 +7,8 @@
 # config-argument-parser
 A package help automatically create command-line interface from configuration or code.
 
+It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
+
 ## Motivation
 Configuration files are highly readable and useful for specifying options, but sometimes they are not convenient as command-line interface. However, it requires writing a lot of code to produce a CLI. This module automates the building process, by utilizing the Python standard libraries `configparser` and `argparse`.
 
