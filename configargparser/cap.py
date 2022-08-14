@@ -86,7 +86,7 @@ class ConfigArgumentParser:
         """
         boolean_to_action = {True: "store_false", False: "store_true"}
         for i, (option, value) in enumerate(self.defaults.items()):
-            flags = [f"--{option}"]
+            flags = [f"--{option.replace('_', '-')}"]
             if i < len(shorts):
                 flags.insert(0, f"-{shorts[i]}")
             if isinstance(value, bool):

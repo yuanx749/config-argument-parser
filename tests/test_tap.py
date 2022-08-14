@@ -45,9 +45,9 @@ class TestConfigArgumentParser:
 
     def test_parse_args_separate(self):
         self.parser._add_arguments()
-        self.parser._parse_args("--a_float 1".split())
+        self.parser._parse_args("--a-float 1".split())
         assert self.parser.args["a_float"] == 1.0
-        self.parser._parse_args(["--a_boolean"])
+        self.parser._parse_args(["--a-boolean"])
         assert self.parser.args["a_boolean"]
 
     def test_parse_args_short(self):

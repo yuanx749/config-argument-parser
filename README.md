@@ -56,16 +56,16 @@ parser.parse_obj(args)
 ```
 Show help, `python example.py -h`:
 ```
-usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an_integer AN_INTEGER]
+usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an-integer AN_INTEGER]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -s A_STRING, --a_string A_STRING
+  -s A_STRING, --a-string A_STRING
                         Help message of the first argument. Help is optional. (default: abc)
-  -f A_FLOAT, --a_float A_FLOAT
+  -f A_FLOAT, --a-float A_FLOAT
                         (default: 1.23)
-  -b, --a_boolean       Help can span multiple lines. This is another line. (default: False)
-  --an_integer AN_INTEGER
+  -b, --a-boolean       Help can span multiple lines. This is another line. (default: False)
+  --an-integer AN_INTEGER
                         (default: 0)
 ```
 Run with options, for example, `python example.py -b -f 1`:
