@@ -1,6 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/config-argument-parser.svg)](https://badge.fury.io/py/config-argument-parser)
 [![Downloads](https://static.pepy.tech/badge/config-argument-parser/month)](https://pepy.tech/project/config-argument-parser)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/yuanx749/config-argument-parser.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/yuanx749/config-argument-parser/context:python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/288bbabbf406afe66e37/maintainability)](https://codeclimate.com/github/yuanx749/config-argument-parser/maintainability)
 [![codecov](https://codecov.io/gh/yuanx749/config-argument-parser/branch/dev/graph/badge.svg?token=W34MFRGVMY)](https://codecov.io/gh/yuanx749/config-argument-parser)
 
