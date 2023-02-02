@@ -23,10 +23,10 @@ class ConfigArgumentParser:
         """Initialize ConfigArgumentParser."""
         self._init_config()
         self._init_parser()
-        self.defaults = dict()
+        self.defaults = {}
         self.namespace = object()
-        self.args = dict()
-        self.help = dict()
+        self.args = {}
+        self.help = {}
         self._comment_prefix = "#"
         self._sect_header_default = self.config.SECTCRE
         self._sect_header_py = re.compile(r"# \[(?P<header>.+)\]")
@@ -50,12 +50,12 @@ class ConfigArgumentParser:
                 self.help[key] = self._join_msg(msg_lst)
                 msg_lst = []
 
-    def _join_msg(self, msg_lst):
+    @staticmethod
+    def _join_msg(msg_lst):
         if msg_lst:
             return " ".join(msg_lst)
         # A non-empty string is needed to show the default in help.
-        else:
-            return " "
+        return " "
 
     def read(self, filenames):
         """Read and parse a filename or an iterable of filenames.
