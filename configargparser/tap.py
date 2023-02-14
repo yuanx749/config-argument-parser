@@ -17,9 +17,9 @@ class TypeArgumentParser:
     def __init__(self):
         """Initialize TypeArgumentParser."""
         self._init_parser()
-        self.defaults = dict()
-        self.args = dict()
-        self.help = dict()
+        self.defaults = {}
+        self.args = {}
+        self.help = {}
 
     def _init_parser(self):
         self.parser = argparse.ArgumentParser(
@@ -43,12 +43,12 @@ class TypeArgumentParser:
                 self.help[next(args_iter)] = self._join_msg(msg_lst)
                 msg_lst = []
 
-    def _join_msg(self, msg_lst):
+    @staticmethod
+    def _join_msg(msg_lst):
         if msg_lst:
             return " ".join(msg_lst)
         # A non-empty string is needed to show the default in help.
-        else:
-            return " "
+        return " "
 
     def _add_arguments(self, shorts=""):
         """Add arguments to parser according to the default.
