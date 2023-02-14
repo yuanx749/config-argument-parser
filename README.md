@@ -28,7 +28,7 @@ The design is to minimize the changes to your original scripts, so as to facilit
 
 If you used class to store arguments, create a script `example.py` as below. Default arguments are defined as class attributes, and parsed arguments are stored as instance attributes. The good is that auto-completion can be triggered in editors.
 
-For the best practice, see Case 4.
+For the best practice, see [Case 4](#case-4-create-cli-from-a-dataclass-object-preferred).
 
 ```Python
 import configargparser
@@ -64,7 +64,7 @@ parser.parse_obj(args)
 
 Show help, `python example.py -h`:
 
-```
+```console
 usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an-integer AN_INTEGER]
 
 optional arguments:
@@ -80,7 +80,7 @@ optional arguments:
 
 Run with options, for example, `python example.py -b -f 1`:
 
-```
+```console
 abc
 1.0
 True
@@ -119,14 +119,14 @@ an_integer = 0
 
 Regular run, `python example.py`:
 
-```
+```console
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 ```
 
 Run with options, such as `python example.py -b -f 1`:
 
-```
+```console
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
@@ -162,7 +162,7 @@ print(an_integer)
 
 Use it as in case 1. For example, `python example.py -b -f 1`:
 
-```
+```console
 abc
 1.0
 True
@@ -203,7 +203,7 @@ print(args.__dict__)
 
 Use it as in case 1. For example, `python example.py -b -f 1` to change the values:
 
-```
+```console
 {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 
