@@ -5,10 +5,13 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b15383188a354af684ba9d49b09cc253)](https://www.codacy.com/gh/yuanx749/config-argument-parser/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yuanx749/config-argument-parser&amp;utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/288bbabbf406afe66e37/maintainability)](https://codeclimate.com/github/yuanx749/config-argument-parser/maintainability)
 [![codecov](https://codecov.io/gh/yuanx749/config-argument-parser/branch/dev/graph/badge.svg?token=W34MFRGVMY)](https://codecov.io/gh/yuanx749/config-argument-parser)
+[![Documentation Status](https://readthedocs.org/projects/config-argument-parser/badge/?version=latest)](https://config-argument-parser.readthedocs.io/en/latest/?badge=latest)
 
 A package help automatically create command-line interface from configuration or code.
 
 It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
+
+Read the documentation [here](https://config-argument-parser.readthedocs.io/en/latest/index.html).
 
 ## Motivation
 
