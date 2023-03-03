@@ -18,6 +18,7 @@
    .. rubric:: {{ _('Functions') }}
 
    .. autosummary::
+      :nosignatures:
    {% for item in functions %}
       {{ item }}
    {%- endfor %}
@@ -30,6 +31,7 @@
 
    .. autosummary::
       :toctree:
+      :nosignatures:
    {% for item in classes %}
       {{ item }}
    {%- endfor %}

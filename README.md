@@ -11,7 +11,7 @@ A package help automatically create command-line interface from configuration or
 
 It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
 
-Read the documentation [here](https://config-argument-parser.readthedocs.io/en/latest/index.html).
+Read the documentation [here](http://config-argument-parser.readthedocs.io/).
 
 ## Motivation
 

@@ -1,4 +1,4 @@
-{{ fullname | escape | underline}}
+{{ name | escape | underline}}
 
 .. currentmodule:: {{ module }}
 
@@ -11,6 +11,7 @@
    .. rubric:: {{ _('Methods') }}
 
    .. autosummary::
+      :nosignatures:
    {% for item in methods %}
       {%- if item != '__init__' %}
       ~{{ name }}.{{ item }}

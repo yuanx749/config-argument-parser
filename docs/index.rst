@@ -1,20 +1,12 @@
-Welcome to config-argument-parser's documentation!
-==================================================
+.. include:: ../README.md
+   :parser: myst_parser.sphinx_
 
 .. toctree::
    :hidden:
-   :maxdepth: 2
-   :caption: Contents:
+   :caption: Navigation
 
-   Home <self>
-   README <readme-md>
-   API <api>
+   README <self>
+   api
+   View on PyPI <https://pypi.org/project/config-argument-parser/>
+   indices
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
