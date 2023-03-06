@@ -11,12 +11,12 @@ class ConfigArgumentParser:
     """Wrapper combining ConfigParser and ArgumentParser.
 
     Attributes:
-        config: A configparser.ConfigParser.
-        parser: A argparse.ArgumentParser.
-        defaults: A dict contains the default arguments.
-        namespace: An object returned by `parser.parse_args`.
-        args: A dict contains the parsed arguments.
-        help: A dict contains the help messages.
+        config: A `~configparser.ConfigParser`.
+        parser: An `~argparse.ArgumentParser`.
+        defaults: A `dict` contains the default arguments.
+        namespace: An object returned by `~argparse.ArgumentParser.parse_args`.
+        args: A `dict` contains the parsed arguments.
+        help: A `dict` contains the help messages.
     """
 
     def __init__(self):
@@ -38,7 +38,7 @@ class ConfigArgumentParser:
         self.config.optionxform = lambda x: x  # override the default
 
     def _convert_defaults(self):
-        """Convert configuration to `self.defaults` and parse the comments into `self.help`."""
+        """Convert configuration to :attr:`defaults` and parse the comments into :attr:`help`."""
         msg_lst = []
         for key, value in self.config.defaults().items():
             if key.startswith(self._comment_prefix):
@@ -106,9 +106,9 @@ class ConfigArgumentParser:
         )
 
     def _parse_args(self, args=None):
-        """Convert argument strings to dictionary `self.args`.
+        """Convert argument strings to dictionary :attr:`args`.
 
-        Return a dictionary containing arguments.
+        Return a `dict` containing arguments.
         """
         self.namespace = self.parser.parse_args(args)
         self.args = vars(self.namespace)
@@ -122,7 +122,7 @@ class ConfigArgumentParser:
             shorts: A sequence of short option letters for the leading options.
 
         Returns:
-            A dictionary containing arguments.
+            A `dict` containing arguments.
         """
         self._add_arguments(shorts=shorts)
         self._parse_args(args=args)
@@ -148,7 +148,7 @@ class ConfigArgumentParser:
             shorts: A sequence of short option letters for the leading options.
 
         Returns:
-            A dictionary containing updated arguments.
+            A `dict` containing updated arguments.
         """
         self._read_obj(obj)
         self._add_arguments(shorts=shorts)

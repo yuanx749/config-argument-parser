@@ -26,11 +26,14 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
+    'sphinx.ext.intersphinx',
+    'sphinx_copybutton',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+default_role = 'obj'
 add_module_names = False
 toc_object_entries_show_parents = 'hide'
 
@@ -57,3 +60,9 @@ napoleon_numpy_docstring = False
 # autodoc
 
 autodoc_member_order = 'bysource'
+
+# intersphinx
+
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+}

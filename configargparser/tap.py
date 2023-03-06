@@ -8,10 +8,10 @@ class TypeArgumentParser:
     """Parser parsing and updating a dataclass object.
 
     Attributes:
-        parser: A argparse.ArgumentParser.
-        defaults: A dict contains the default arguments.
-        args: A dict contains the parsed arguments.
-        help: A dict contains the help messages.
+        parser: An `~argparse.ArgumentParser`.
+        defaults: A `dict` contains the default arguments.
+        args: A `dict` contains the parsed arguments.
+        help: A `dict` contains the help messages.
     """
 
     def __init__(self):
@@ -29,7 +29,7 @@ class TypeArgumentParser:
     def _read_obj(self, obj: object):
         """Read and parse the attributes of a dataclass object.
 
-        Convert attributes to `self.defaults` and parse the comments into `self.help`.
+        Convert attributes to :attr:`defaults` and parse the comments into :attr:`help`.
         """
         source_lines, _ = inspect.getsourcelines(type(obj))
         self.defaults = obj.__dict__.copy()
@@ -73,9 +73,9 @@ class TypeArgumentParser:
                 )
 
     def _parse_args(self, args=None):
-        """Convert argument strings to dictionary `self.args`.
+        """Convert argument strings to dictionary :attr:`args`.
 
-        Return a dictionary containing arguments.
+        Return a `dict` containing arguments.
         """
         namespace = self.parser.parse_args(args)
         self.args = vars(namespace)
@@ -89,12 +89,12 @@ class TypeArgumentParser:
         """Parse arguments and update object attributes.
 
         Args:
-            obj: A dataclass object with attributes as default arguments.
+            obj: A `~dataclasses.dataclass` object with attributes as default arguments.
             args: A list of strings to parse. The default is taken from `sys.argv`.
             shorts: A sequence of short option letters for the leading options.
 
         Returns:
-            A dictionary containing updated arguments.
+            A `dict` containing updated arguments.
         """
         self._read_obj(obj)
         self._add_arguments(shorts=shorts)
