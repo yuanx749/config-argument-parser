@@ -68,6 +68,7 @@ parser.parse_obj(args)
 Show help, `python example.py -h`:
 
 ```console
+$ python example.py -h
 usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an-integer AN_INTEGER]
 
 optional arguments:
@@ -84,6 +85,7 @@ optional arguments:
 Run with options, for example, `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 abc
 1.0
 True
@@ -123,6 +125,7 @@ an_integer = 0
 Regular run, `python example.py`:
 
 ```console
+$ python example.py
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 ```
@@ -130,6 +133,7 @@ Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 
 Run with options, such as `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
@@ -166,6 +170,7 @@ print(an_integer)
 Use it as in case 1. For example, `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 abc
 1.0
 True
@@ -207,6 +212,7 @@ print(args.__dict__)
 Use it as in case 1. For example, `python example.py -b -f 1` to change the values:
 
 ```console
+$ python example.py -b -f 1
 {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 
