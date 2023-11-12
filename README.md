@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/config-argument-parser.svg)](https://badge.fury.io/py/config-argument-parser)
 [![Downloads](https://static.pepy.tech/badge/config-argument-parser/month)](https://pepy.tech/project/config-argument-parser)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b15383188a354af684ba9d49b09cc253)](https://www.codacy.com/gh/yuanx749/config-argument-parser/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yuanx749/config-argument-parser&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b15383188a354af684ba9d49b09cc253)](https://app.codacy.com/gh/yuanx749/config-argument-parser/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/288bbabbf406afe66e37/maintainability)](https://codeclimate.com/github/yuanx749/config-argument-parser/maintainability)
 [![codecov](https://codecov.io/gh/yuanx749/config-argument-parser/branch/dev/graph/badge.svg?token=W34MFRGVMY)](https://codecov.io/gh/yuanx749/config-argument-parser)
 [![Documentation Status](https://readthedocs.org/projects/config-argument-parser/badge/?version=latest)](https://config-argument-parser.readthedocs.io/en/latest/?badge=latest)
@@ -11,7 +11,7 @@ A package help automatically create command-line interface from configuration or
 
 It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
 
-Read the documentation [here](https://config-argument-parser.readthedocs.io/en/latest/index.html).
+Read the documentation [here](http://config-argument-parser.readthedocs.io/).
 
 ## Motivation
 
@@ -68,6 +68,7 @@ parser.parse_obj(args)
 Show help, `python example.py -h`:
 
 ```console
+$ python example.py -h
 usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an-integer AN_INTEGER]
 
 optional arguments:
@@ -84,6 +85,7 @@ optional arguments:
 Run with options, for example, `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 abc
 1.0
 True
@@ -123,6 +125,7 @@ an_integer = 0
 Regular run, `python example.py`:
 
 ```console
+$ python example.py
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 ```
@@ -130,6 +133,7 @@ Args:    {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 
 Run with options, such as `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 0}
 Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
@@ -166,6 +170,7 @@ print(an_integer)
 Use it as in case 1. For example, `python example.py -b -f 1`:
 
 ```console
+$ python example.py -b -f 1
 abc
 1.0
 True
@@ -207,6 +212,7 @@ print(args.__dict__)
 Use it as in case 1. For example, `python example.py -b -f 1` to change the values:
 
 ```console
+$ python example.py -b -f 1
 {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 

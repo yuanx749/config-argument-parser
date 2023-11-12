@@ -25,7 +25,6 @@ class Args:
 
 
 class TestConfigArgumentParser:
-
     parser = cap.ConfigArgumentParser()
 
     def setup_method(self):
