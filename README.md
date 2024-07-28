@@ -7,7 +7,7 @@
 [![codecov](https://codecov.io/gh/yuanx749/config-argument-parser/branch/dev/graph/badge.svg?token=W34MFRGVMY)](https://codecov.io/gh/yuanx749/config-argument-parser)
 [![Documentation Status](https://readthedocs.org/projects/config-argument-parser/badge/?version=latest)](https://config-argument-parser.readthedocs.io/en/latest/?badge=latest)
 
-A package help automatically create command-line interface from configuration or code.
+A package to help automatically create command-line interface from configuration or code.
 
 It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
 
