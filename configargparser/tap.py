@@ -36,7 +36,7 @@ class TypeArgumentParser:
         msg_lst = []
         args_iter = iter(self.defaults.keys())
         for line in source_lines:
-            if line.strip().startswith(("@", "class")):
+            if line.strip().startswith(("@", "class ")):
                 pass
             elif line.strip().startswith("#"):
                 msg = line.lstrip(" #").strip()
