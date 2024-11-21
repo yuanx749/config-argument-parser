@@ -1,51 +1,47 @@
-"""A module for building command-line interface from dataclass."""
+"""A module for building command-line interface from globals."""
 
 import argparse
 import inspect
 
 
-class TypeArgumentParser:
-    """Parser parsing and updating a dataclass object.
+class GlobalArgumentParser:
+    """Parser parsing and updating global variables.
 
     Attributes:
         parser: An `~argparse.ArgumentParser`.
         defaults: A `dict` contains the default arguments.
         args: A `dict` contains the parsed arguments.
-        help: A `dict` contains the help messages.
     """
 
     def __init__(self):
-        """Initialize TypeArgumentParser."""
+        """Initialize GlobalArgumentParser."""
         self._init_parser()
         self.defaults = {}
         self.args = {}
         self.help = {}
+        self._globals = {}
 
     def _init_parser(self):
         self.parser = argparse.ArgumentParser(
             formatter_class=argparse.ArgumentDefaultsHelpFormatter
         )
 
-    def _read_obj(self, obj: object):
-        """Read and parse the attributes of a dataclass object.
+    def _read_globals(self, stack=2):
+        """Read and parse the attributes of global variables.
 
-        Convert attributes to :attr:`defaults` and parse the comments into :attr:`help`.
+        Convert attributes to :attr:`defaults`.
         """
-        source_lines, _ = inspect.getsourcelines(type(obj))
-        self.defaults = obj.__dict__.copy()
-        msg_lst = []
-        args_iter = iter(self.defaults.keys())
-        for line in source_lines:
-            if line.strip().startswith(("@", "class ")):
-                pass
-            elif line.strip().startswith("#"):
-                msg = line.lstrip(" #").strip()
-                msg_lst.append(msg)
-            else:
-                key = next(args_iter)
-                # A non-whitespace string is needed to show the default in help.
-                self.help[key] = " ".join(msg_lst) if msg_lst else str(key)
-                msg_lst = []
+        self._globals = dict(inspect.getmembers(inspect.stack()[stack][0]))["f_globals"]
+        self.defaults = {
+            k: v
+            for k, v in self._globals.items()
+            if not k.startswith("_")
+            and not inspect.ismodule(v)
+            and not inspect.isclass(v)
+            and not inspect.isfunction(v)
+            and not isinstance(v, GlobalArgumentParser)
+        }
+        self.help = {k: str(k) for k in self.defaults}
 
     def _add_arguments(self, shorts=""):
         """Add arguments to parser according to the default.
@@ -78,23 +74,22 @@ class TypeArgumentParser:
         self.args = vars(namespace)
         return self.args
 
-    def _change_obj(self, obj):
-        """Update object attributes."""
-        obj.__dict__.update(self.args)
+    def _change_globals(self):
+        """Update global variables."""
+        self._globals.update(self.args)
 
-    def parse_obj(self, obj, args=None, *, shorts=""):
-        """Parse arguments and update object attributes.
+    def parse_globals(self, args=None, *, shorts=""):
+        """Parse arguments and update global variables.
 
         Args:
-            obj: A `~dataclasses.dataclass` object with attributes as default arguments.
             args: A list of strings to parse. The default is taken from `sys.argv`.
             shorts: A sequence of short option letters for the leading options.
 
         Returns:
             A `dict` containing updated arguments.
         """
-        self._read_obj(obj)
+        self._read_globals()
         self._add_arguments(shorts=shorts)
         self._parse_args(args=args)
-        self._change_obj(obj)
+        self._change_globals()
         return self.args
