@@ -21,7 +21,7 @@ The design is to minimize the changes to your original scripts, so as to facilit
 
 ## Features
 
-- Only a few extra lines are needed to build a CLI from an existing script.
+- Only few extra lines are needed to build a CLI from an existing script.
 - The comments are parsed as help messages. (Most libraries do not preserve the comments.)
 - Consistent format between configuration and script provides ease of use.
 
@@ -29,9 +29,7 @@ The design is to minimize the changes to your original scripts, so as to facilit
 
 ### Case 1: create CLI from an object
 
-If you used class to store arguments, create a script `example.py` as below. Default arguments are defined as class attributes, and parsed arguments are stored as instance attributes. The good is that auto-completion can be triggered in editors.
-
-For the best practice, see [Case 4](#case-4-create-cli-from-a-dataclass-object-preferred).
+If you use class to store arguments, such as the script `example.py` below.
 
 ```Python
 import configargparser
@@ -48,7 +46,6 @@ class Args:
 args = Args()
 
 parser = configargparser.ConfigArgumentParser()
-# if `shorts` is provided, add short options for the first few arguments in order
 parser.parse_obj(args, shorts="sfb")
 
 print(args.a_string)
@@ -57,13 +54,15 @@ print(args.a_boolean)
 print(args.an_integer)
 ```
 
-In fact, only the snippet below is added to the original script. Moreover, removing this minimal modification does not affect the original script.
+In fact, only the snippet below is added to the original script. Moreover, removing this minimal modification does not affect the original script. `shorts` is optional. If provided, add short options for the first few arguments in order.
 
 ```Python
 import configargparser
 parser = configargparser.ConfigArgumentParser()
 parser.parse_obj(args)
 ```
+
+Default arguments are defined as class attributes, and parsed arguments are stored as instance attributes. The good is that auto-completion can be triggered in editors.
 
 Show help, `python example.py -h`:
 
@@ -94,9 +93,11 @@ True
 
 Note that the values are changed.
 
+For the best practice, see [Case 4](#case-4-create-cli-from-a-dataclass-object-preferred).
+
 ### Case 2: create CLI from configuration
 
-If you used configuration file, create an example script `example.py`:
+If you use configuration file, create an example script `example.py`:
 
 ```Python
 import configargparser
@@ -138,9 +139,9 @@ Configs: {'a_string': 'abc', 'a_float': 1.23, 'a_boolean': False, 'an_integer': 
 Args:    {'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
 ```
 
-### Case 3: create CLI from script itself
+### Case 3: create CLI from global variables
 
-If you used global variables, create a script `example.py`, with the variables defined at top of file as below:
+If you use global variables, define the variables at top of file as the script `example.py` below:
 
 ```Python
 # [DEFAULT]
@@ -195,8 +196,6 @@ class Args:
     an_integer: int = 0
 
 args = Args()
-
-print(args.__dict__)
 ```
 
 Add these lines to the script to create CLI:
@@ -206,14 +205,14 @@ import configargparser
 parser = configargparser.TypeArgumentParser()
 parser.parse_obj(args, shorts="sfb")
 
-print(args.__dict__)
+print(args)
 ```
 
 Use it as in case 1. For example, `python example.py -b -f 1` to change the values:
 
 ```console
 $ python example.py -b -f 1
-{'a_string': 'abc', 'a_float': 1.0, 'a_boolean': True, 'an_integer': 0}
+Args(a_string='abc', a_float=1.0, a_boolean=True, an_integer=0)
 ```
 
 ## Installation
