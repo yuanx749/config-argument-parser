@@ -9,7 +9,7 @@
 
 A package to help automatically create command-line interface from configuration or code.
 
-It contains two modules CAP🧢(`ConfigArgumentParser`) and TAP🚰(`TypeArgumentParser`).
+It contains three modules CAP🧢(`ConfigArgumentParser`), TAP🚰(`TypeArgumentParser`), and GAP🕳️(`GlobalArgumentParser`).
 
 Read the documentation [here](http://config-argument-parser.readthedocs.io/).
 
@@ -213,6 +213,37 @@ Use it as in case 1. For example, `python example.py -b -f 1` to change the valu
 ```console
 $ python example.py -b -f 1
 Args(a_string='abc', a_float=1.0, a_boolean=True, an_integer=0)
+```
+
+### Case 5: create CLI from global variables (without comments)
+
+This requires less code than case 3, but the comments are not parsed, as the script `example.py` below:
+
+```Python
+a_string = "abc"
+a_float = 1.23
+a_boolean = False
+an_integer = 0
+
+import configargparser
+
+parser = configargparser.GlobalArgumentParser()
+parser.parse_globals(shorts="sfb")
+
+print(a_string)
+print(a_float)
+print(a_boolean)
+print(an_integer)
+```
+
+Use it as in case 1. For example, `python example.py -b -f 1`:
+
+```console
+$ python example.py -b -f 1
+abc
+1.0
+True
+0
 ```
 
 ## Installation
