@@ -42,15 +42,10 @@ class TypeArgumentParser:
                 msg = line.lstrip(" #").strip()
                 msg_lst.append(msg)
             else:
-                self.help[next(args_iter)] = self._join_msg(msg_lst)
+                key = next(args_iter)
+                # A non-whitespace string is needed to show the default in help.
+                self.help[key] = " ".join(msg_lst) if msg_lst else str(key)
                 msg_lst = []
-
-    @staticmethod
-    def _join_msg(msg_lst):
-        if msg_lst:
-            return " ".join(msg_lst)
-        # A non-empty string is needed to show the default in help.
-        return " "
 
     def _add_arguments(self, shorts=""):
         """Add arguments to parser according to the default.

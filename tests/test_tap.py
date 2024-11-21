@@ -32,7 +32,7 @@ class TestConfigArgumentParser:
             self.parser.help["a_string"]
             == "Help message of the first argument. Help is optional."
         )
-        assert self.parser.help["a_float"] == " "
+        assert self.parser.help["a_float"] == "a_float"
         assert (
             self.parser.help["a_boolean"]
             == "Help can span multiple lines. This is another line."

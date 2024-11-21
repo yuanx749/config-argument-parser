@@ -70,15 +70,15 @@ Show help, `python example.py -h`:
 $ python example.py -h
 usage: example.py [-h] [-s A_STRING] [-f A_FLOAT] [-b] [--an-integer AN_INTEGER]
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -s A_STRING, --a-string A_STRING
                         Help message of the first argument. Help is optional. (default: abc)
   -f A_FLOAT, --a-float A_FLOAT
-                        (default: 1.23)
+                        a_float (default: 1.23)
   -b, --a-boolean       Help can span multiple lines. This is another line. (default: False)
   --an-integer AN_INTEGER
-                        (default: 0)
+                        an_integer (default: 0)
 ```
 
 Run with options, for example, `python example.py -b -f 1`:

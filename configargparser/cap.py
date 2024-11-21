@@ -47,15 +47,9 @@ class ConfigArgumentParser:
                 msg_lst.append(msg)
             else:
                 self.defaults[key] = literal_eval(value)
-                self.help[key] = self._join_msg(msg_lst)
+                # A non-whitespace string is needed to show the default in help.
+                self.help[key] = " ".join(msg_lst) if msg_lst else str(key)
                 msg_lst = []
-
-    @staticmethod
-    def _join_msg(msg_lst):
-        if msg_lst:
-            return " ".join(msg_lst)
-        # A non-empty string is needed to show the default in help.
-        return " "
 
     def read(self, filenames):
         """Read and parse a filename or an iterable of filenames.
