@@ -1,6 +1,6 @@
 """A package to help automatically create command-line interface from configuration or code."""
 
-__version__ = "1.5.1"
+__version__ = "1.5.3"
 
 from .cap import ConfigArgumentParser
 from .gap import GlobalArgumentParser

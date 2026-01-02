@@ -1,16 +1,14 @@
 # config-argument-parser
 
-[![PyPI version](https://badge.fury.io/py/config-argument-parser.svg)](https://badge.fury.io/py/config-argument-parser)
-[![Downloads](https://static.pepy.tech/badge/config-argument-parser/month)](https://pepy.tech/project/config-argument-parser)
+[![PyPI](https://img.shields.io/pypi/v/config-argument-parser)](https://pypi.org/project/config-argument-parser/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b15383188a354af684ba9d49b09cc253)](https://app.codacy.com/gh/yuanx749/config-argument-parser/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![codecov](https://codecov.io/gh/yuanx749/config-argument-parser/branch/dev/graph/badge.svg?token=W34MFRGVMY)](https://codecov.io/gh/yuanx749/config-argument-parser)
-[![Documentation Status](https://readthedocs.org/projects/config-argument-parser/badge/?version=latest)](https://config-argument-parser.readthedocs.io/en/latest/?badge=latest)
 
 A package to help automatically create command-line interface from configuration or code.
 
 It contains three modules CAP🧢(`ConfigArgumentParser`), TAP🚰(`TypeArgumentParser`), and GAP🕳️(`GlobalArgumentParser`).
 
-Read the documentation [here](http://config-argument-parser.readthedocs.io/).
+Read the documentation [here](https://yuanx749.github.io/config-argument-parser-docs/).
 
 ## Motivation
 
