@@ -2,6 +2,9 @@
 
 import argparse
 import inspect
+import re
+
+_FIELD_RE = re.compile(r"^\s*[A-Za-z_]\w*\s*[:=]")
 
 
 class TypeArgumentParser:
@@ -41,6 +44,10 @@ class TypeArgumentParser:
             elif line.strip().startswith("#"):
                 msg = line.lstrip(" #").strip()
                 msg_lst.append(msg)
+            elif not _FIELD_RE.match(line):
+                # Skip blank lines, docstrings and other non-field
+                # lines without consuming a field name.
+                continue
             else:
                 key = next(args_iter)
                 # A non-whitespace string is needed to show the default in help.

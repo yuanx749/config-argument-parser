@@ -64,3 +64,29 @@ class TestConfigArgumentParser:
             "a_boolean": True,
             "an_integer": 0,
         }
+
+
+@dataclass
+class DocArgs:
+    """Dataclass with a docstring and blank lines."""
+
+    # Help for the first argument.
+    a_string: str = "abc"
+
+    an_integer: int = 0
+
+
+class TestConfigArgumentParserDocstring:
+    def test_read_obj_with_docstring_and_blank_lines(self):
+        args = DocArgs()
+        parser = tap.TypeArgumentParser()
+        parser._read_obj(args)
+        assert parser.defaults == args.__dict__
+        assert parser.help["a_string"] == "Help for the first argument."
+        assert parser.help["an_integer"] == "an_integer"
+
+    def test_parse_obj_with_docstring_and_blank_lines(self):
+        args = DocArgs()
+        parser = tap.TypeArgumentParser()
+        parser.parse_obj(args, [])
+        assert args.__dict__ == {"a_string": "abc", "an_integer": 0}
